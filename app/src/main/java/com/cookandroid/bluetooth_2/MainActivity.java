@@ -12,10 +12,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,16 +35,16 @@ public class MainActivity extends AppCompatActivity {
     TextView mTvVaccum;
     TextView mTvSpd;
     ImageView mIvBluetooth;
-    Button mBtnConnect;
-    Button mBtnTop;
-    Button mBtnBottom;
+    Button mBtnConnect, mBtnBreak;
     Button mBtnLeft;
     Button mBtnRight;
     Button mBtnOne;
     Button mBtnTwo;
     Button mBtnThr;
-    Button mBtnStop;
     Switch mSwVaccum;
+
+    RadioGroup mRdoGruoup;
+    RadioButton mRdoD, mRdoN, mRdoP;
 
     BluetoothAdapter mBluetoothAdapter;
     Set<BluetoothDevice> mPairedDevices;
@@ -65,62 +68,59 @@ public class MainActivity extends AppCompatActivity {
         mTvSpd = (TextView)findViewById(R.id.tvSpd);
         mIvBluetooth = (ImageView) findViewById(R.id.ivBluetooth);
         mBtnConnect = (Button)findViewById(R.id.btnConnect);
-        mBtnTop = (Button)findViewById(R.id.btnTop);
-        mBtnBottom = (Button)findViewById(R.id.btnBottom);
         mBtnLeft = (Button)findViewById(R.id.btnLeft);
         mBtnRight = (Button)findViewById(R.id.btnRight);
         mBtnOne = (Button)findViewById(R.id.btnOne);
         mBtnTwo = (Button)findViewById(R.id.btnTwo);
         mBtnThr = (Button)findViewById(R.id.btnThr);
-        mBtnStop = (Button)findViewById(R.id.btnStop);
+        mBtnBreak = (Button)findViewById(R.id.btnBreak);
         mSwVaccum = (Switch)findViewById(R.id.swVaccum);
+        mRdoGruoup = (RadioGroup)findViewById(R.id.rdoGroup);
+        mRdoD = (RadioButton)findViewById(R.id.rdoD);
+        mRdoN = (RadioButton)findViewById(R.id.rdoN);
+        mRdoP = (RadioButton)findViewById(R.id.rdoP);
 
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
         mIvBluetooth.setImageResource(R.drawable.blacktooth);
 
 
+        mBtnLeft.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int status = event.getAction();
+                if(status == MotionEvent.ACTION_DOWN){
+                    if(mThreadConnectedBluetooth != null) {
+                        mThreadConnectedBluetooth.write("l");
+                    }
+                }
+                if(status == MotionEvent.ACTION_UP){
+                    if(mThreadConnectedBluetooth != null) {
+                        mThreadConnectedBluetooth.write("lr");
+                    }
+                }
+                return false;
+            }
+        });
 
+        mBtnRight.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int status = event.getAction();
+                if(status == MotionEvent.ACTION_DOWN){
+                    if(mThreadConnectedBluetooth != null) {
+                        mThreadConnectedBluetooth.write("r");
+                    }
+                }
+                if(status == MotionEvent.ACTION_UP){
+                    if(mThreadConnectedBluetooth != null) {
+                        mThreadConnectedBluetooth.write("rr");
+                    }
+                }
+                return false;
+            }
+        });
 
-        mBtnConnect.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                listPairedDevices();
-
-            }
-        });
-        mBtnLeft.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(mThreadConnectedBluetooth != null) {
-                    mThreadConnectedBluetooth.write("l");
-                }
-            }
-        });
-        mBtnTop.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(mThreadConnectedBluetooth != null) {
-                    mThreadConnectedBluetooth.write("u");
-                }
-            }
-        });
-        mBtnBottom.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(mThreadConnectedBluetooth != null) {
-                    mThreadConnectedBluetooth.write("b");
-                }
-            }
-        });
-        mBtnRight.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(mThreadConnectedBluetooth != null) {
-                    mThreadConnectedBluetooth.write("r");
-                }
-            }
-        });
         mBtnOne.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -130,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
         mBtnTwo.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -148,11 +149,40 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        mBtnStop.setOnClickListener(new Button.OnClickListener() {
+
+        mBtnBreak.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View view) {
-                if(mThreadConnectedBluetooth != null) {
-                    mThreadConnectedBluetooth.write("s");
+            public boolean onTouch(View v, MotionEvent event) {
+                int status = event.getAction();
+                if(status == MotionEvent.ACTION_DOWN){
+                    if(mThreadConnectedBluetooth != null) {
+                        mThreadConnectedBluetooth.write("s");
+                    }
+                }
+                if(status == MotionEvent.ACTION_UP){
+                    if(mThreadConnectedBluetooth != null) {
+                        mThreadConnectedBluetooth.write("sr");
+                    }
+                }
+                return false;
+            }
+        });
+
+        mRdoGruoup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if(checkedId == R.id.rdoD){
+                    if(mThreadConnectedBluetooth != null) {
+                        mThreadConnectedBluetooth.write("D");
+                    }
+                } else if(checkedId == R.id.rdoN){
+                    if(mThreadConnectedBluetooth != null) {
+                        mThreadConnectedBluetooth.write("N");
+                    }
+                } else if(checkedId == R.id.rdoP){
+                    if(mThreadConnectedBluetooth != null) {
+                        mThreadConnectedBluetooth.write("P");
+                    }
                 }
             }
         });

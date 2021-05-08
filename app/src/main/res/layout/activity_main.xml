@@ -29,9 +29,9 @@
 
     <Button
         android:id="@+id/btnLeft"
-        android:layout_width="100dp"
+        android:layout_width="150dp"
         android:layout_height="110dp"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="52dp"
         android:text="L"
         android:textSize="20dp"
         app:layout_constraintStart_toStartOf="@+id/btnConnect"
@@ -39,43 +39,62 @@
 
     <Button
         android:id="@+id/btnRight"
-        android:layout_width="100dp"
+        android:layout_width="150dp"
         android:layout_height="110dp"
-        android:layout_marginLeft="145dp"
+        android:layout_marginLeft="20dp"
         android:text="R"
         android:textSize="20dp"
         app:layout_constraintStart_toEndOf="@+id/btnLeft"
         app:layout_constraintTop_toTopOf="@+id/btnLeft" />
 
     <Button
-        android:id="@+id/btnTop"
-        android:layout_width="100dp"
+        android:id="@+id/btnBreak"
+        android:layout_width="150dp"
         android:layout_height="110dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="136dp"
-        android:text="GO"
+        android:text="Break"
         android:textSize="20dp"
-        app:layout_constraintLeft_toRightOf="@+id/btnLeft"
-        app:layout_constraintStart_toEndOf="@+id/btnLeft"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/btnTwo"
+        app:layout_constraintTop_toBottomOf="@+id/rdoGroup" />
 
-    <Button
-        android:id="@+id/btnBottom"
-        android:layout_width="100dp"
-        android:layout_height="110dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginBottom="60dp"
-        android:text="Back"
-        android:textSize="20dp"
-        app:layout_constraintStart_toStartOf="@+id/btnTop"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <RadioGroup
+        android:id="@+id/rdoGroup"
+        android:layout_width="67dp"
+        android:layout_height="150dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical"
+        app:layout_constraintLeft_toRightOf="@id/btnRight"
+        app:layout_constraintTop_toBottomOf="@id/btnOne">
+
+        <RadioButton
+            android:id="@+id/rdoD"
+            android:layout_width="match_parent"
+            android:layout_height="49dp"
+            android:text="D" />
+
+        <RadioButton
+            android:id="@+id/rdoN"
+            android:layout_width="match_parent"
+            android:layout_height="49dp"
+            android:checked="true"
+            android:text="N" />
+        />
+
+        <RadioButton
+            android:id="@+id/rdoP"
+            android:layout_width="match_parent"
+            android:layout_height="49dp"
+            android:text="R" />
+        />
+
+    </RadioGroup>
 
     <Button
         android:id="@+id/btnOne"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginLeft="380dp"
+        android:layout_marginLeft="250dp"
         android:text="1"
         app:layout_constraintStart_toEndOf="@+id/ivBluetooth"
         app:layout_constraintTop_toTopOf="@+id/ivBluetooth" />
@@ -119,15 +138,6 @@
         android:textSize="15dp"
         app:layout_constraintStart_toEndOf="@+id/btnOne"
         app:layout_constraintTop_toBottomOf="@+id/btnThr"/>
-
-    <Button
-        android:id="@+id/btnStop"
-        android:layout_width="100dp"
-        android:layout_height="130dp"
-        android:layout_marginTop="150dp"
-        android:text="Break"
-        app:layout_constraintStart_toStartOf="@+id/btnTwo"
-        app:layout_constraintTop_toBottomOf="@+id/btnTwo" />
 
 
     <TextView
