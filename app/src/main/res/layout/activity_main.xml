@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/ivBluetooth"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <Button
+        android:id="@+id/btnConnect"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="30dp"
+        android:text="연결하기"
+        app:layout_constraintStart_toStartOf="@+id/ivBluetooth"
+        app:layout_constraintTop_toBottomOf="@+id/ivBluetooth" />
+
+
+    <Button
+        android:id="@+id/btnLeft"
+        android:layout_width="100dp"
+        android:layout_height="110dp"
+        android:layout_marginTop="84dp"
+        android:text="L"
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="@+id/btnConnect"
+        app:layout_constraintTop_toBottomOf="@+id/btnConnect" />
+
+    <Button
+        android:id="@+id/btnRight"
+        android:layout_width="100dp"
+        android:layout_height="110dp"
+        android:layout_marginLeft="145dp"
+        android:text="R"
+        android:textSize="20dp"
+        app:layout_constraintStart_toEndOf="@+id/btnLeft"
+        app:layout_constraintTop_toTopOf="@+id/btnLeft" />
+
+    <Button
+        android:id="@+id/btnTop"
+        android:layout_width="100dp"
+        android:layout_height="110dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="136dp"
+        android:text="GO"
+        android:textSize="20dp"
+        app:layout_constraintLeft_toRightOf="@+id/btnLeft"
+        app:layout_constraintStart_toEndOf="@+id/btnLeft"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnBottom"
+        android:layout_width="100dp"
+        android:layout_height="110dp"
+        android:layout_marginTop="64dp"
+        android:text="Back"
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="@+id/btnTop"
+        app:layout_constraintTop_toBottomOf="@+id/btnTop" />
+
+    <Button
+        android:id="@+id/btnOne"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="380dp"
+        android:text="1"
+        app:layout_constraintStart_toEndOf="@+id/ivBluetooth"
+        app:layout_constraintTop_toTopOf="@+id/ivBluetooth" />
+    <Button
+        android:id="@+id/btnTwo"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="20dp"
+        android:text="2"
+        app:layout_constraintStart_toEndOf="@+id/btnOne"
+        app:layout_constraintTop_toTopOf="@+id/btnOne" />
+    <Button
+        android:id="@+id/btnThr"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="20dp"
+        android:text="3"
+        app:layout_constraintStart_toEndOf="@+id/btnTwo"
+        app:layout_constraintTop_toTopOf="@+id/btnTwo" />
+
+    <TextView
+        android:id="@+id/tvSpd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:text=": 2"
+        android:textColor="#000000"
+        android:textSize="15dp"
+        app:layout_constraintTop_toBottomOf="@+id/btnThr"
+        app:layout_constraintStart_toEndOf="@+id/tvSpdCtl" />
+
+    <TextView
+        android:id="@+id/tvSpdCtl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="40dp"
+        android:text="Speed Control"
+        android:textColor="#000000"
+        android:textSize="15dp"
+        app:layout_constraintStart_toEndOf="@+id/btnOne"
+        app:layout_constraintTop_toBottomOf="@+id/btnThr"/>
+
+    <Button
+        android:id="@+id/btnStop"
+        android:layout_width="100dp"
+        android:layout_height="130dp"
+        android:layout_marginTop="150dp"
+        android:text="Break"
+        app:layout_constraintStart_toStartOf="@+id/btnTwo"
+        app:layout_constraintTop_toBottomOf="@+id/btnTwo" />
+
+
+    <TextView
+        android:id="@+id/tvVaccum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:text="OFF"
+        android:textSize="20dp"
+        app:layout_constraintStart_toEndOf="@+id/btnThr"
+        app:layout_constraintTop_toTopOf="@+id/btnThr" />
+
+    <Switch
+        android:id="@+id/swVaccum"
+        android:layout_width="42dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="30dp"
+        android:switchMinWidth="20dp"
+        android:thumb="@drawable/switch_thumb_selector"
+        android:track="@drawable/switch_track_selector"
+        app:layout_constraintStart_toStartOf="@+id/tvVaccum"
+        app:layout_constraintTop_toBottomOf="@+id/tvVaccum" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
