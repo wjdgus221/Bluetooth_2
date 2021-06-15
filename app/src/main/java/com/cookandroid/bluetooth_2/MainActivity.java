@@ -8,17 +8,13 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.SystemClock;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,19 +28,13 @@ import java.util.Set;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
-    TextView mTvVaccum;
+    TextView mTvVaccum, mTvVaccum_2;
     TextView mTvSpd;
     ImageView mIvBluetooth;
-    Button mBtnConnect, mBtnBreak;
-    Button mBtnLeft;
-    Button mBtnRight;
-    Button mBtnOne;
-    Button mBtnTwo;
-    Button mBtnThr;
+    Button mBtnConnect;
+    Button mBtnLeft, mBtnRight, mBtnGo, mBtnBack;
+    Button mBtnOne, mBtnTwo, mBtnThr;
     Switch mSwVaccum;
-
-    RadioGroup mRdoGruoup;
-    RadioButton mRdoD, mRdoN, mRdoP;
 
     BluetoothAdapter mBluetoothAdapter;
     Set<BluetoothDevice> mPairedDevices;
@@ -54,9 +44,6 @@ public class MainActivity extends AppCompatActivity {
     BluetoothDevice mBluetoothDevice;
     BluetoothSocket mBluetoothSocket;
 
-
-    final static int BT_MESSAGE_READ = 2;
-    final static int BT_CONNECTING_STATUS = 3;
     final static UUID BT_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
     @Override
@@ -65,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mTvVaccum = (TextView)findViewById(R.id.tvVaccum);
+        mTvVaccum_2 = (TextView)findViewById(R.id.tvVaccum_2);
         mTvSpd = (TextView)findViewById(R.id.tvSpd);
         mIvBluetooth = (ImageView) findViewById(R.id.ivBluetooth);
         mBtnConnect = (Button)findViewById(R.id.btnConnect);
@@ -73,17 +61,20 @@ public class MainActivity extends AppCompatActivity {
         mBtnOne = (Button)findViewById(R.id.btnOne);
         mBtnTwo = (Button)findViewById(R.id.btnTwo);
         mBtnThr = (Button)findViewById(R.id.btnThr);
-        mBtnBreak = (Button)findViewById(R.id.btnBreak);
+        mBtnGo = (Button)findViewById(R.id.btnGo);
+        mBtnBack = (Button)findViewById(R.id.btnBack);
         mSwVaccum = (Switch)findViewById(R.id.swVaccum);
-        mRdoGruoup = (RadioGroup)findViewById(R.id.rdoGroup);
-        mRdoD = (RadioButton)findViewById(R.id.rdoD);
-        mRdoN = (RadioButton)findViewById(R.id.rdoN);
-        mRdoP = (RadioButton)findViewById(R.id.rdoP);
 
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
         mIvBluetooth.setImageResource(R.drawable.blacktooth);
 
+        mBtnConnect.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listPairedDevices();
+            }
+        });
 
         mBtnLeft.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -121,6 +112,42 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        mBtnGo.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int status = event.getAction();
+                if(status == MotionEvent.ACTION_DOWN){
+                    if(mThreadConnectedBluetooth != null) {
+                        mThreadConnectedBluetooth.write("g");
+                    }
+                }
+                if(status == MotionEvent.ACTION_UP){
+                    if(mThreadConnectedBluetooth != null) {
+                        mThreadConnectedBluetooth.write("gr");
+                    }
+                }
+                return false;
+            }
+        });
+
+        mBtnBack.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int status = event.getAction();
+                if(status == MotionEvent.ACTION_DOWN){
+                    if(mThreadConnectedBluetooth != null) {
+                        mThreadConnectedBluetooth.write("b");
+                    }
+                }
+                if(status == MotionEvent.ACTION_UP){
+                    if(mThreadConnectedBluetooth != null) {
+                        mThreadConnectedBluetooth.write("br");
+                    }
+                }
+                return false;
+            }
+        });
+
         mBtnOne.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -150,42 +177,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mBtnBreak.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                int status = event.getAction();
-                if(status == MotionEvent.ACTION_DOWN){
-                    if(mThreadConnectedBluetooth != null) {
-                        mThreadConnectedBluetooth.write("s");
-                    }
-                }
-                if(status == MotionEvent.ACTION_UP){
-                    if(mThreadConnectedBluetooth != null) {
-                        mThreadConnectedBluetooth.write("sr");
-                    }
-                }
-                return false;
-            }
-        });
-
-        mRdoGruoup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if(checkedId == R.id.rdoD){
-                    if(mThreadConnectedBluetooth != null) {
-                        mThreadConnectedBluetooth.write("D");
-                    }
-                } else if(checkedId == R.id.rdoN){
-                    if(mThreadConnectedBluetooth != null) {
-                        mThreadConnectedBluetooth.write("N");
-                    }
-                } else if(checkedId == R.id.rdoP){
-                    if(mThreadConnectedBluetooth != null) {
-                        mThreadConnectedBluetooth.write("P");
-                    }
-                }
-            }
-        });
 
 
         mSwVaccum.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){

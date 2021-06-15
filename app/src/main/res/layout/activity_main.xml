@@ -48,72 +48,53 @@
         app:layout_constraintTop_toTopOf="@+id/btnLeft" />
 
     <Button
-        android:id="@+id/btnBreak"
+        android:id="@+id/btnGo"
         android:layout_width="150dp"
-        android:layout_height="110dp"
-        android:text="Break"
+        android:layout_height="100dp"
+        android:text="Go"
         android:textSize="20dp"
-        app:layout_constraintStart_toStartOf="@+id/btnTwo"
-        app:layout_constraintTop_toBottomOf="@+id/rdoGroup" />
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnBack"/>
 
 
-    <RadioGroup
-        android:id="@+id/rdoGroup"
-        android:layout_width="67dp"
-        android:layout_height="150dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="30dp"
-        android:orientation="vertical"
-        app:layout_constraintLeft_toRightOf="@id/btnRight"
-        app:layout_constraintTop_toBottomOf="@id/btnOne">
-
-        <RadioButton
-            android:id="@+id/rdoD"
-            android:layout_width="match_parent"
-            android:layout_height="49dp"
-            android:text="D" />
-
-        <RadioButton
-            android:id="@+id/rdoN"
-            android:layout_width="match_parent"
-            android:layout_height="49dp"
-            android:checked="true"
-            android:text="N" />
-        />
-
-        <RadioButton
-            android:id="@+id/rdoP"
-            android:layout_width="match_parent"
-            android:layout_height="49dp"
-            android:text="R" />
-        />
-
-    </RadioGroup>
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="16dp"
+        android:text="Back"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <Button
         android:id="@+id/btnOne"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginLeft="250dp"
+        android:layout_marginRight="20dp"
         android:text="1"
-        app:layout_constraintStart_toEndOf="@+id/ivBluetooth"
-        app:layout_constraintTop_toTopOf="@+id/ivBluetooth" />
+        app:layout_constraintEnd_toStartOf="@+id/btnTwo"
+        app:layout_constraintTop_toTopOf="@+id/btnThr" />
     <Button
         android:id="@+id/btnTwo"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:text="2"
-        app:layout_constraintStart_toEndOf="@+id/btnOne"
-        app:layout_constraintTop_toTopOf="@+id/btnOne" />
+        app:layout_constraintEnd_toStartOf="@+id/btnThr"
+        app:layout_constraintTop_toTopOf="@+id/btnThr" />
     <Button
         android:id="@+id/btnThr"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:text="3"
-        app:layout_constraintStart_toEndOf="@+id/btnTwo"
-        app:layout_constraintTop_toTopOf="@+id/btnTwo" />
+        app:layout_constraintEnd_toStartOf="@id/swVaccum"
+        app:layout_constraintTop_toTopOf="@+id/ivBluetooth" />
 
     <TextView
         android:id="@+id/tvSpd"
@@ -132,11 +113,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="40dp"
         android:text="Speed Control"
         android:textColor="#000000"
         android:textSize="15dp"
-        app:layout_constraintStart_toEndOf="@+id/btnOne"
+        app:layout_constraintStart_toStartOf="@+id/btnOne"
         app:layout_constraintTop_toBottomOf="@+id/btnThr"/>
 
 
@@ -144,21 +124,32 @@
         android:id="@+id/tvVaccum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="100dp"
         android:text="OFF"
         android:textSize="20dp"
-        app:layout_constraintStart_toEndOf="@+id/btnThr"
-        app:layout_constraintTop_toTopOf="@+id/btnThr" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Switch
         android:id="@+id/swVaccum"
         android:layout_width="42dp"
         android:layout_height="30dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:switchMinWidth="20dp"
         android:thumb="@drawable/switch_thumb_selector"
         android:track="@drawable/switch_track_selector"
         app:layout_constraintStart_toStartOf="@+id/tvVaccum"
         app:layout_constraintTop_toBottomOf="@+id/tvVaccum" />
+
+    <TextView
+        android:id="@+id/tvVaccum_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:text="Vaccum mode"
+        android:textSize="15dp"
+        app:layout_constraintLeft_toLeftOf="@+id/swVaccum"
+        app:layout_constraintTop_toBottomOf="@+id/swVaccum"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
